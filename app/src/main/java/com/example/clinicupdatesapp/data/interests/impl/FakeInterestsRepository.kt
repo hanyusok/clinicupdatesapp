@@ -43,24 +43,25 @@ class FakeInterestsRepository : InterestsRepository {
         )
     }
 
-    private val publications by lazy {
+    private val clinics by lazy {
         listOf(
-            "Kotlin Vibe",
-            "Compose Mix",
-            "Compose Breakdown",
-            "Android Pursue",
-            "Kotlin Watchman",
-            "Jetpack Ark",
-            "Composeshack",
-            "Jetpack Point",
-            "Compose Tribune"
+            "마트의원",
+            "풍림연세의원",
+            "안철수 소아과",
+            "키큰아이 의원",
+            "뼈마디 정형외과",
+            "밝은 피부과",
+            "속편한 내과",
+            "소리이비인후과",
+            "한마음 가정의학과"
         )
     }
 
     // for now, keep the selections in memory
     private val selectedTopics = MutableStateFlow(setOf<TopicSelection>())
     private val selectedPeople = MutableStateFlow(setOf<String>())
-    private val selectedPublications = MutableStateFlow(setOf<String>())
+    private val selectedClinics = MutableStateFlow(setOf<String>())
+
 
     override suspend fun getTopics(): Result<List<InterestSection>> {
         return Result.Success(topics)
@@ -70,8 +71,8 @@ class FakeInterestsRepository : InterestsRepository {
         return Result.Success(people)
     }
 
-    override suspend fun getPublications(): Result<List<String>> {
-        return Result.Success(publications)
+    override suspend fun getClinics(): Result<List<String>> {
+        return Result.Success(clinics)
     }
 
     override suspend fun toggleTopicSelection(topic: TopicSelection) {
@@ -86,8 +87,8 @@ class FakeInterestsRepository : InterestsRepository {
         }
     }
 
-    override suspend fun togglePublicationSelected(publication: String) {
-        selectedPublications.update {
+    override suspend fun toggleClinicSelected(publication: String) {
+        selectedClinics.update {
             it.addOrRemove(publication)
         }
     }
@@ -96,5 +97,5 @@ class FakeInterestsRepository : InterestsRepository {
 
     override fun observePeopleSelected(): Flow<Set<String>> = selectedPeople
 
-    override fun observePublicationSelected(): Flow<Set<String>> = selectedPublications
+    override fun observeClinicSelected(): Flow<Set<String>> = selectedClinics
 }
